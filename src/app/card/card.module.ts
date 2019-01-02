@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { CardDeckPage } from './card-deck/card-deck.page';
 
 @NgModule({
-	import: [
+	imports: [
 		IonicModule,
 		CommonModule
 	],
