@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of as ObservableOf, observable } from 'rxjs';
+import { of as ObservableOf, oservable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { CardDeck } from './card.module';

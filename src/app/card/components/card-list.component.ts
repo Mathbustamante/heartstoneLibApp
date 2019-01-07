@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
 	selector: 'app-card-list',
@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
 })
 
 export class CardListComponent {
-	
+	@Input() items: any[] = [];
+	@Input() listName: string;
+
+	@Input() navigateTo: any;
+
 }
