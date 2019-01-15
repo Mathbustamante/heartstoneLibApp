@@ -10,6 +10,7 @@ export interface card {
 	img: string;
 	imgGold: string;
 	name: string;
+	text: string;
 
 	cost:  number;
 
