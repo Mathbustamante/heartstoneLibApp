@@ -27,5 +27,6 @@ export class CardService {
 	public getCardsById(cardId: string): Observable<Card[]> {
 		return this.http.get<Card[]>(`${this.HS_API_URL}/cards/${cardId}`, {headers: this.headers});
 	}
+	
 		
 }

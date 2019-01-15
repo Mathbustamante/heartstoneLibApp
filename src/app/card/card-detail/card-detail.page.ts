@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CardService } from '../shared/card.service';
 
-import { Card } from '../shared/card.model'
+import { Card } from '../shared/card.model';
 
 @Component({
   selector: 'app-card-detail',
