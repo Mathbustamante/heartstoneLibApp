@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { CardService } from '../shared/card.service';
-import { LoaderService } from '../../shared/service/loader.service'
+import { LoaderService } from '../../shared/service/loader.service';
 import { Card } from '../shared/card.model';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CardService } from '../shared/card.service';
-import { CardDeck } from '../shared/card.module';
+import { CardDeck } from '../shared/card.model';
 
 
 @Component({

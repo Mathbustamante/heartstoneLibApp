@@ -4,7 +4,7 @@ export interface CardDeck {
 	types: string[];
 }
 
-export interface card {
+export interface Card {
 	cardId: string;
 	cardSet: string;
 	img: string;

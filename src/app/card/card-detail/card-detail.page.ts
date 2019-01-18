@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { CardService } from '../shared/card.service';
-import { Card } from '../shared/card.model';
+
 import { LoaderService } from '../../shared/service/loader.service';
+
+import { Card } from '../shared/card.model';
 
 @Component({
   selector: 'app-card-detail',

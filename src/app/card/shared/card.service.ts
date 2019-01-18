@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { of as ObservableOf, oservable } from 'rxjs';
+import { of as ObservableOf, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { CardDeck, Card } from './card.module';
+import { CardDeck, Card } from './card.model';
 
 @Injectable()
 export class CardService {
