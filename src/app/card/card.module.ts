@@ -13,6 +13,8 @@ import { CardService } from './shared/card.service';
  
 import { CardListComponent } from './components/card-list.component';
 
+import { LoaderService } from '../shared/service/loader.service';
+
 @NgModule({
 	imports: [
 		IonicModule,
@@ -20,7 +22,8 @@ import { CardListComponent } from './components/card-list.component';
 		HttpClientModule
 	],
 	providers: [
-		CardService
+		CardService,
+		LoaderService
 	],
 	declarations: [
 		CardDeckPage,

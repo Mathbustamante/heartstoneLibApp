@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
 import { CardService } from '../shared/card.service';
-
+import { LoaderService } from '../../shared/service/loader.service'
 import { Card } from '../shared/card.model';
 
 @Component({
@@ -21,24 +20,13 @@ export class CardListingPage {
 
   constructor(private route: ActivatedRoute, 
               private cardService: CardService,
-              private loadingCtrl: LoadingController) { }
+              private LoaderService: LoaderService) { }
 
-  private async presentLoading(){
-    const loader = await this.loadingCtrl.create({
-      content: 'Please wait...',
-      translucent: true
-    });
-
-    loader.present();
-
-    return loader;
-  }
-
-  async ionViewWillEnter(){
+  ionViewWillEnter(){
   	this.cardDeckGroup = this.route.snapshot.paramMap.get('cardDeckGroup');
   	this.cardDeck = this.route.snapshot.paramMap.get('cardDeck');
 
-    this.loader = await this.presentLoading();
+    this.LoaderService.presentLoading();
 
   	this.cardService.getCardsByDeck(this.cardDeckGroup, this.cardDeck).subscribe(
   	(cards: Card[]) => {
@@ -48,7 +36,7 @@ export class CardListingPage {
         return card;
       });
 
-      this.loader.dismiss();
+      this.LoaderService.dismissLoading();
   	})
   }
 
