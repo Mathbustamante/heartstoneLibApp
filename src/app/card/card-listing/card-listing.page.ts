@@ -5,6 +5,8 @@ import { CardService } from '../shared/card.service';
 import { LoaderService } from '../../shared/service/loader.service';
 import { ToastService } from '../../shared/service/toast.service';
 import { Card } from '../shared/card.model';
+import { FavoriteCardStore } from '../shared/card-favorite.store';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-card-listing',
@@ -18,6 +20,8 @@ export class CardListingPage {
 	cards: Card[] = [];
   copyOfCards: Card[] = [];
 
+  favoriteCards: any = {};
+
   isLoading: boolean = false;
 
   loader:any;
@@ -25,7 +29,17 @@ export class CardListingPage {
   constructor(private route: ActivatedRoute, 
               private cardService: CardService,
               private LoaderService: LoaderService,
-              private toaster: ToastService) { }
+              private toaster: ToastService,
+              private storage: Storage,
+              private favoriteCardStore: FavoriteCardStore) { 
+
+    this.favoriteCardStore.favoriteCards.subscribe(
+    (favoriteCards: any) => {
+      this.favoriteCards = favoriteCards;
+    })
+  }
+
+
 
   private getCards(){
     this.LoaderService.presentLoading();
@@ -35,6 +49,7 @@ export class CardListingPage {
       
       this.cards = cards.map((card: Card) => {
         card.text = card.text = this.cardService.replaceCardTextLine(card.text);
+        card.favorite = this.isCardFavorite(card.cardId);
         return card;
       });
 
@@ -45,6 +60,14 @@ export class CardListingPage {
       this.LoaderService.dismissLoading();
       this.toaster.presentErrorToast('UUUps cards could not be loaded. Refresh page')})
   }
+
+  private isCardFavorite(cardId: string): boolean {
+    const card = this.favoriteCards[cardId];
+
+    return card ? true : false;
+
+  }
+
 
   ionViewWillEnter(){
   	this.cardDeckGroup = this.route.snapshot.paramMap.get('cardDeckGroup');
@@ -66,5 +89,48 @@ export class CardListingPage {
   handleSearch(){
     this.isLoading = true;
   }
+
+  favoriteCard(card: Card){
+    this.favoriteCardStore.toggleCard(card);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

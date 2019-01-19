@@ -16,7 +16,8 @@ import { ToastService } from '../shared/service/toast.service';
 import { AlertService } from '../shared/service/alert.service';
 import { LoaderService } from '../shared/service/loader.service';
 
-import { SearchComponent } from '../shared/component/search/search.component'
+import { FavoriteCardStore } from './shared/card-favorite.store';
+import { SearchComponent } from '../shared/component/search/search.component';
 
 @NgModule({
 	imports: [
@@ -28,7 +29,8 @@ import { SearchComponent } from '../shared/component/search/search.component'
 		CardService,
 		LoaderService,
 		ToastService,
-		AlertService
+		AlertService,
+		FavoriteCardStore
 	],
 	declarations: [
 		CardDeckPage,

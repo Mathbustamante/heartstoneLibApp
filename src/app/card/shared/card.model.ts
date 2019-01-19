@@ -11,7 +11,7 @@ export interface Card {
 	imgGold: string;
 	name: string;
 	text: string;
-
+	favorite: boolen:
 	cost:  number;
 
 	attack: number;
