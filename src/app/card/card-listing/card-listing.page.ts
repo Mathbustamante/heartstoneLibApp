@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CardService } from '../shared/card.service';
 import { LoaderService } from '../../shared/service/loader.service';
+import { ToastService } from '../../shared/service/toast.service';
 import { Card } from '../shared/card.model';
 
 @Component({
@@ -20,16 +21,14 @@ export class CardListingPage {
 
   constructor(private route: ActivatedRoute, 
               private cardService: CardService,
-              private LoaderService: LoaderService) { }
+              private LoaderService: LoaderService,
+              private toaster: ToastService) { }
 
-  ionViewWillEnter(){
-  	this.cardDeckGroup = this.route.snapshot.paramMap.get('cardDeckGroup');
-  	this.cardDeck = this.route.snapshot.paramMap.get('cardDeck');
-
+  private getCards(){
     this.LoaderService.presentLoading();
 
-  	this.cardService.getCardsByDeck(this.cardDeckGroup, this.cardDeck).subscribe(
-  	(cards: Card[]) => {
+    this.cardService.getCardsByDeck(this.cardDeckGroup, this.cardDeck).subscribe(
+    (cards: Card[]) => {
       
       this.cards = cards.map((card: Card) => {
         card.text = card.text = this.cardService.replaceCardTextLine(card.text);
@@ -37,7 +36,21 @@ export class CardListingPage {
       });
 
       this.LoaderService.dismissLoading();
-  	})
+    }, () => {
+      this.LoaderService.dismissLoading();
+      this.toaster.presentErrorToast('UUUps cards could not be loaded. Refresh page')})
+  }
+
+  ionViewWillEnter(){
+  	this.cardDeckGroup = this.route.snapshot.paramMap.get('cardDeckGroup');
+  	this.cardDeck = this.route.snapshot.paramMap.get('cardDeck');
+
+    if(this.cards && this.cards.length === 0) this.getCards();
+  }
+
+  doRefresh(event){
+    this.getCards();
+    event.target.complete();
   }
 
 

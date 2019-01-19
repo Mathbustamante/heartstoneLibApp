@@ -12,7 +12,8 @@ import { CardListingPage } from './card-listing/card-listing.page';
 import { CardService } from './shared/card.service';
  
 import { CardListComponent } from './components/card-list.component';
-
+import { ToastService } from '../shared/service/toast.service';
+import { AlertService } from '../shared/service/alert.service';
 import { LoaderService } from '../shared/service/loader.service';
 
 @NgModule({
@@ -23,7 +24,9 @@ import { LoaderService } from '../shared/service/loader.service';
 	],
 	providers: [
 		CardService,
-		LoaderService
+		LoaderService,
+		ToastService,
+		AlertService
 	],
 	declarations: [
 		CardDeckPage,
