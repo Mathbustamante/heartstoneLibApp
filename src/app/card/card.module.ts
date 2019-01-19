@@ -16,6 +16,8 @@ import { ToastService } from '../shared/service/toast.service';
 import { AlertService } from '../shared/service/alert.service';
 import { LoaderService } from '../shared/service/loader.service';
 
+import { SearchComponent } from '../shared/component/search/search.component'
+
 @NgModule({
 	imports: [
 		IonicModule,
@@ -32,7 +34,8 @@ import { LoaderService } from '../shared/service/loader.service';
 		CardDeckPage,
 		CardListingPage,
 		CardListComponent,
-		CardDetailPage
+		CardDetailPage,
+		SearchComponent
 	]
 })
 export class CardPageModule {}
