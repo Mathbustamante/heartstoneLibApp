@@ -18,6 +18,8 @@ export class CardListingPage {
 	cards: Card[] = [];
   copyOfCards: Card[] = [];
 
+  isLoading: boolean = false;
+
   loader:any;
 
   constructor(private route: ActivatedRoute, 
@@ -58,7 +60,11 @@ export class CardListingPage {
 
   hydrateCards(cards: Card[]) {
     this.cards = cards;
+    this.isLoading = false;
   }
 
+  handleSearch(){
+    this.isLoading = true;
+  }
 
 }
