@@ -1,82 +1,84 @@
 import { Component } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
-import { CardService } from '../shared/card.service';
 import { LoaderService } from '../../shared/service/loader.service';
 import { ToastService } from '../../shared/service/toast.service';
-import { Card } from '../shared/card.model';
-import { FavoriteCardStore } from '../shared/card-favorite.store';
+import { CardService } from '../shared/card.service';
 import { Storage } from '@ionic/storage';
+import { FavoriteCardStore } from '../shared/card-favorite.store';
+import { Subscription } from 'rxjs';
+
+import { Card } from '../shared/card.model';
 
 @Component({
   selector: 'app-card-listing',
   templateUrl: './card-listing.page.html',
-  styleUrls: ['./card-listing.page.scss']
+  styleUrls: ['./card-listing.page.scss'],
 })
 export class CardListingPage {
 
-	cardDeckGroup: string;
-	cardDeck: string;
-	cards: Card[] = [];
+  cardDeckGroup: string;
+  cardDeck: string;
+  cards: Card[] = [];
   copyOfCards: Card[] = [];
 
   favoriteCards: any = {};
 
   isLoading: boolean = false;
 
-  loader:any;
+  favoriteCardSub: Subscription;
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
               private cardService: CardService,
-              private LoaderService: LoaderService,
+              private loaderService: LoaderService,
               private toaster: ToastService,
               private storage: Storage,
-              private favoriteCardStore: FavoriteCardStore) { 
+              private favoriteCardStore: FavoriteCardStore) {
 
-    this.favoriteCardStore.favoriteCards.subscribe(
-    (favoriteCards: any) => {
-      this.favoriteCards = favoriteCards;
-    })
+    this.favoriteCardSub = this.favoriteCardStore.favoriteCards.subscribe(
+      (favoriteCards: any) => {
+        this.favoriteCards = favoriteCards;
+      })
   }
 
+  ionViewDidLeave() {
+    if (this.favoriteCardSub && !this.favoriteCardSub.closed) {
+      this.favoriteCardSub.unsubscribe();
+    }
+  }
 
-
-  private getCards(){
-    this.LoaderService.presentLoading();
+  private getCards() {
+    this.loaderService.presentLoading();
 
     this.cardService.getCardsByDeck(this.cardDeckGroup, this.cardDeck).subscribe(
-    (cards: Card[]) => {
-      
-      this.cards = cards.map((card: Card) => {
-        card.text = card.text = this.cardService.replaceCardTextLine(card.text);
-        card.favorite = this.isCardFavorite(card.cardId);
-        return card;
-      });
+      (cards: Card[]) => {
+        this.cards = cards.map((card: Card) => {
+          card.text = this.cardService.replaceCardTextLine(card.text);
+          card.favorite = this.isCardFavorite(card.cardId);
+          return card;
+        });
 
-      this.copyOfCards = Array.from(this.cards);
-
-      this.LoaderService.dismissLoading();
-    }, () => {
-      this.LoaderService.dismissLoading();
-      this.toaster.presentErrorToast('UUUps cards could not be loaded. Refresh page')})
+        this.copyOfCards = Array.from(this.cards);
+        this.loaderService.dismissLoading();
+      }, () => {
+        this.loaderService.dismissLoading();
+        this.toaster.presentErrorToast("Uuuppp card could not be loaded, lets let's try to refresh page");
+    })
   }
 
   private isCardFavorite(cardId: string): boolean {
     const card = this.favoriteCards[cardId];
 
     return card ? true : false;
-
   }
 
+  ionViewWillEnter() {
+    this.cardDeckGroup = this.route.snapshot.paramMap.get('cardDeckGroup');
+    this.cardDeck = this.route.snapshot.paramMap.get('cardDeck');
 
-  ionViewWillEnter(){
-  	this.cardDeckGroup = this.route.snapshot.paramMap.get('cardDeckGroup');
-  	this.cardDeck = this.route.snapshot.paramMap.get('cardDeck');
-
-    if(this.cards && this.cards.length === 0) this.getCards();
+    if (this.cards && this.cards.length === 0) this.getCards();
   }
 
-  doRefresh(event){
+  doRefresh(event) {
     this.getCards();
     event.target.complete();
   }
@@ -86,50 +88,13 @@ export class CardListingPage {
     this.isLoading = false;
   }
 
-  handleSearch(){
+  handleSearch() {
     this.isLoading = true;
   }
 
-  favoriteCard(card: Card){
+  favoriteCard(card: Card) {
     this.favoriteCardStore.toggleCard(card);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

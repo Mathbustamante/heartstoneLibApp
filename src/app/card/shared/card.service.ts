@@ -6,31 +6,31 @@ import { CardDeck, Card } from './card.model';
 
 @Injectable()
 export class CardService {
-	
-	private readonly HS_API_URL = 'https://omgvamp-hearthstone-v1.p.mashape.com';
-	private readonly API_KEY = '6vUAD54h7WmshsPC0E8rPOxItHzep1iNjckjsnHV4YFw7IWKNO';
 
-	private headers: HttpHeaders;
+  private readonly HS_API_URL = 'https://omgvamp-hearthstone-v1.p.mashape.com';
+  private readonly API_KEY = '6c4ZAxHSdqmshyBbZbBsUmsSZiljp1MGz8BjsnzS8CIPmsUKmJ';
 
-	constructor(private http: HttpClient) {
-		this.headers = new HttpHeaders({'X-Mashape-Key': this.API_KEY});
-	}
+  private headers: HttpHeaders;
 
-	public replaceCardTextLine(text: string){
-		return text ? text.replace(new RegExp("\\\\n", "g"), ", "): "No Description";
-	}
+  constructor(private http: HttpClient) {
+    this.headers = new HttpHeaders({'X-Mashape-Key': this.API_KEY});
+  }
 
-	public getAllCardDecks(): Observable<CardDeck[]> {
-		return this.http.get<CardDeck[]>(`${this.HS_API_URL}/info`, {headers: this.headers});
-	}
+  public replaceCardTextLine(text: string) {
+    return text ? text.replace(new RegExp("\\\\n", "g"), ", ") : 'No Description';
+  }
 
-	public getCardsByDeck(cardDeckGroup: string, cardDeck: string): Observable<any> {
-		return this.http.get<Card[]>(`${this.HS_API_URL}/cards/${cardDeckGroup}/${cardDeck}`, {headers: this.headers});
-	}
 
-	public getCardsById(cardId: string): Observable<Card[]> {
-		return this.http.get<Card[]>(`${this.HS_API_URL}/cards/${cardId}`, {headers: this.headers});
-	}
-	
-		
+  public getAllCardDecks(): Observable<CardDeck[]> {
+    return this.http.get<CardDeck[]>(`${this.HS_API_URL}/info`, {headers: this.headers});
+  }
+
+  public getCardsByDeck(cardDeckGroup: string, cardDeck: string): Observable<Card[]> {
+    return this.http.get<Card[]>(`${this.HS_API_URL}/cards/${cardDeckGroup}/${cardDeck}`, {headers: this.headers});
+  }
+
+  public getCardById(cardId: string): Observable<Card[]> {
+    return this.http.get<Card[]>(`${this.HS_API_URL}/cards/${cardId}`, {headers: this.headers});
+  }
+
 }

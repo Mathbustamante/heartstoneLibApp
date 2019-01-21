@@ -1,28 +1,26 @@
 export interface CardDeck {
-	
-	name: string;
-	types: string[];
+  name: string;
+  types: string[];
 }
 
+
 export interface Card {
-	cardId: string;
-	cardSet: string;
-	img: string;
-	imgGold: string;
-	name: string;
-	text: string;
-	favorite: boolen:
-	cost:  number;
+  cardId: string;
+  cardSet: string;
+  img: string;
+  imgGold: string;
+  name: string;
+  text: string;
+  favorite: boolean;
 
-	attack: number;
-	health: number;
+  cost: number;
+  attack: number;
+  health: number;
+  rarity: string;
+  type: string;
 
-	rarity: string;
-	dbId: string;
-	faction: string;
-	type: string;
-	playerClass: string;
-	locale: string;
-
-
+  dbfId: string;
+  faction: string;
+  playerClass: string;
+  locale: string;
 }
