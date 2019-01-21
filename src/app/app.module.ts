@@ -18,12 +18,12 @@ import { FcmService } from './shared/service/fcm.service';
 import { ToastService } from './shared/service/toast.service';
 
 const config = {
-    apiKey: "AIzaSyBv8D1_Dzcr1c_WOiesqOIVH15Yh3fsDo4",
-    authDomain: "test-hero-24d99.firebaseapp.com",
-    databaseURL: "https://test-hero-24d99.firebaseio.com",
-    projectId: "test-hero-24d99",
-    storageBucket: "test-hero-24d99.appspot.com",
-    messagingSenderId: "400594279050"
+    apiKey: "AIzaSyAoeZ-OJwclAgDNOz6obCucEGWAk4yFIus",
+    authDomain: "heartstonelibapp-7b8ab.firebaseapp.com",
+    databaseURL: "https://heartstonelibapp-7b8ab.firebaseio.com",
+    projectId: "heartstonelibapp-7b8ab",
+    storageBucket: "heartstonelibapp-7b8ab.appspot.com",
+    messagingSenderId: "409380775711"
   };
 
 @NgModule({
